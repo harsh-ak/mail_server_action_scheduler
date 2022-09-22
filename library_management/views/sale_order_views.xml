@@ -1,0 +1,50 @@
+<odoo>
+
+    <menuitem id="sale.report_sales_team"
+        parent="sale.sale_order_menu"
+        name="Sales Teams"
+        sequence="5"/>
+
+
+    <menuitem id="sale.sales_team_config"
+            name="Sales Teams"
+            parent="sale.menu_sale_config"
+            sequence="99"/>
+
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="domain">[('state', 'not in', ('draft', 'sent'))]</field>
+    </record>
+
+
+         <menuitem id="country_menu"
+        parent="sale.prod_config_main"
+        action="base.action_country"
+        name="Countries"
+        sequence="5"/>
+
+        <menuitem id="sale.report_sales_team"
+        parent="sale.sale_order_menu"
+        name="Cancelled Quotations"
+        action="action_cancelled_orders"
+        sequence="6"/>
+
+        <record id="action_cancelled_orders" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,form,calendar,graph,kanban,pivot</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="domain">[('state','=',('cancel'))]</field>
+            <field name="context">{}
+            </field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+              </p><p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+              </p>
+            </field>
+        </record>
+
+
+</odoo>

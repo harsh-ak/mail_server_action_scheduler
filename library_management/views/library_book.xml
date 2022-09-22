@@ -1,0 +1,127 @@
+<odoo>
+	#Library Book Action.
+	<record id="action_library_book"
+		model="ir.actions.act_window">
+		<field name="name">Library Book</field>
+		<field name="res_model">library.book</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+#Library Book Menu.
+<menuitem id="library_main_menu"
+	name="Library"
+	/>
+
+<menuitem id="library_book_main_menu"
+	name="Library Book"
+	action="action_library_book"
+	parent = 'library_main_menu'
+	/>
+
+
+	#Library Book Tree view
+	<record id="view_library_book_tree" model="ir.ui.view">
+		<field name="name">library.book</field>
+		<field name="model">library.book</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="author"/>
+				<field name="isbn_no" options="{'format': 0}"/>
+				<field name="state"/>
+				<field name="total_stock"/>
+				<field name="avail_stock"/>
+			</tree>
+			
+		</field>
+
+	</record>
+	<!-- randint(10**(8-1),(10**8)-1) -->
+
+
+
+	#Library Book Form view
+
+	<record id="view_library_book_form" model="ir.ui.view">
+
+		<field name="name">library.book</field>
+		<field name="model">library.book</field>
+		<field name="arch" type="xml">
+
+			<form>
+				<header>
+					<button name="change_state" string="Move To Scrap" type="object" class="oe_highlight" attrs="{'invisible':[('state','=','Scrapped')]}"/>
+					<button name="send_mail" string="Send By Email" type="object" class="oe_highlight"/>
+					<button name="send_direct_mail" string="Send Direct Email" type="object" class="oe_highlight"/>
+				</header>
+				<sheet>
+					<div name="button_box"  class="oe_button_box">
+
+						<button class="oe_stat_button" type="object"
+		                        icon="fa-calendar" name="demo">
+		                        <div class="o_stat_info">
+		                        <field name="total" class="o_stat_value"/>
+		                        	<span class="o_stat_text">Total Sales</span>
+		                        </div>
+		                    </button>
+					</div>
+					<field name="image" widget="image" class="oe_avatar"> </field>
+				<group>
+					<group>
+
+						<field name="name"/>
+						<field name="author"/>
+						<field name="isbn_no"/>
+						<field name="state"/>
+						<field name="total_stock"/>
+						<field name="avail_stock"/>
+						
+						<!-- <field name="sale_history_ids">
+							<tree>
+								<field name="visitor_id"/>
+								<field name="quantity"/>
+								<field name="price"/>
+								<field name="Subtotal"/>
+							</tree>
+							
+							
+
+						</field> -->
+
+						</group>
+
+				</group>
+				<notebook>
+						<page string="Sales History">
+							<field name="sale_history_ids">
+							<tree>
+								<field name="visitor_id"/>
+								<field name="quantity"/>
+								<field name="price"/>
+								<field name="Subtotal"/>
+							</tree>
+
+							<form>
+								<group>
+
+								<field name="visitor_id"/>
+								<field name="quantity"/>
+								<field name="price"/>
+								<field name="Subtotal"/>
+
+								</group>
+
+							</form>
+							</field>
+						</page>
+						
+				
+					</notebook>
+
+				</sheet>
+			</form>
+		</field>
+
+	</record>	
+
+</odoo>
